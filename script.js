@@ -14,6 +14,12 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // 跟踪页面刷新次数
     trackRefreshCount();
+    
+    // 初始化成就系统
+    initAchievementSystem();
+    
+    // 启动动态标签页标题
+    startDynamicPageTitle();
 });
 
 // 提交悖论选择
@@ -21,7 +27,7 @@ function submitParadox() {
     const selectedOption = document.querySelector('input[name="paradox"]:checked');
     
     if (!selectedOption) {
-        alert("请选择一个选项才能进入岛屿！");
+        alert("Please select an option to enter the island!");
         return;
     }
     
@@ -29,8 +35,8 @@ function submitParadox() {
     document.getElementById('paradoxModal').style.display = 'none';
     
     if (selectedOption.value === 'option3') {
-        // 正确答案
-        showAchievement('悖论大师', '你掌握了反反逻辑的奥秘！欢迎来到反反爱尔兰岛！');
+        // Correct answer
+        showAchievement('Paradox Master', 'You have mastered the mysteries of anti-anti logic! Welcome to Anti-Anti Ireland Island!');
         
         // 触发彩虹效果
         document.body.classList.add('rainbow-effect');
@@ -40,11 +46,11 @@ function submitParadox() {
             const audioContext = new (window.AudioContext || window.webkitAudioContext)();
             playRickrollMelody(audioContext);
         } catch (e) {
-            console.log("音频上下文不支持");
+            console.log("Audio context not supported");
         }
     } else {
-        // 错误答案
-        showAchievement('逻辑学徒', '你的答案不完全符合反反逻辑，但欢迎你探索这个岛屿！');
+        // Wrong answer
+        showAchievement('Logic Apprentice', 'Your answer doesn\'t fully conform to anti-anti logic, but welcome to explore this island!');
     }
 }
 
@@ -57,7 +63,7 @@ function togglePufferfishDialogue() {
 // 触发逻辑风暴
 function triggerLogicStorm() {
     document.body.classList.add('logic-storm');
-    showAchievement('逻辑风暴', '你触发了逻辑风暴！现实开始分裂为矛盾的天空...');
+    showAchievement('Logic Storm', 'You triggered a logic storm! Reality begins to split into contradictory skies...');
 }
 
 // 播放Never Gonna Give You Up旋律（简化版）
@@ -92,6 +98,8 @@ function closeAchievement() {
     document.getElementById('achievement').classList.remove('show');
 }
 
+
+
 // 跟踪页面刷新次数
 function trackRefreshCount() {
     let refreshCount = localStorage.getItem('antiAntiIrelandRefreshCount') || 0;
@@ -102,7 +110,7 @@ function trackRefreshCount() {
         // 触发隐藏彩蛋
         setTimeout(() => {
             document.body.style.background = 'linear-gradient(135deg, #169b62 0%, #ffffff 50%, #ff883e 100%)';
-            showAchievement('反反反爱尔兰长老', '检测到执着行为！你已晋升为反反反爱尔兰长老');
+            showAchievement('Anti-Anti-Anti Ireland Elder', 'Persistent behavior detected! You have been promoted to Anti-Anti-Anti Ireland Elder');
         }, 2000);
     }
 }
@@ -350,12 +358,255 @@ class ChaosBlockSystem {
     }
 }
 
-// 页面加载后启动雨滴系统和混沌色块系统
+// 渡鸦逻辑符号系统
+class RavenLogicSystem {
+    constructor() {
+        this.raven = document.getElementById('floating-raven');
+        this.symbols = ['→', '⇄', '⊻'];
+        this.currentSymbolIndex = 0;
+        this.truthTableViewCount = parseInt(localStorage.getItem('truthTableViews') || '0');
+        this.truthTables = {
+            '→': {
+                name: 'Conditional (Implication)',
+                table: [
+                    ['P', 'Q', 'P→Q'],
+                    ['T', 'T', 'T'],
+                    ['T', 'F', 'F'],
+                    ['F', 'T', 'T'],
+                    ['F', 'F', 'T']
+                ]
+            },
+            '⇄': {
+                name: 'Biconditional (Equivalence)',
+                table: [
+                    ['P', 'Q', 'P⇄Q'],
+                    ['T', 'T', 'T'],
+                    ['T', 'F', 'F'],
+                    ['F', 'T', 'F'],
+                    ['F', 'F', 'T']
+                ]
+            },
+            '⊻': {
+                name: 'Exclusive OR (XOR)',
+                table: [
+                    ['P', 'Q', 'P⊻Q'],
+                    ['T', 'T', 'F'],
+                    ['T', 'F', 'T'],
+                    ['F', 'T', 'T'],
+                    ['F', 'F', 'F']
+                ]
+            }
+        };
+        
+        this.start();
+    }
+    
+    start() {
+        // 每20秒更换逻辑符号
+        setInterval(() => {
+            this.changeSymbol();
+        }, 20000);
+    }
+    
+    changeSymbol() {
+        this.currentSymbolIndex = (this.currentSymbolIndex + 1) % this.symbols.length;
+        const newSymbol = this.symbols[this.currentSymbolIndex];
+        if (this.raven) {
+            this.raven.setAttribute('data-symbol', newSymbol);
+        }
+    }
+    
+    getCurrentSymbol() {
+        return this.symbols[this.currentSymbolIndex];
+    }
+    
+    getTruthTable(symbol) {
+        return this.truthTables[symbol];
+    }
+    
+    incrementTruthTableView() {
+        this.truthTableViewCount++;
+        localStorage.setItem('truthTableViews', this.truthTableViewCount.toString());
+        
+        // 检查累积成就
+        this.checkCumulativeAchievements();
+    }
+    
+    checkCumulativeAchievements() {
+        const count = this.truthTableViewCount;
+        
+        if (count === 3) {
+            setTimeout(() => {
+                showAchievement('Logic Beginner', 'You have viewed 3 truth tables! Your journey of logical learning officially begins.');
+            }, 800);
+        } else if (count === 5) {
+            setTimeout(() => {
+                showAchievement('Symbol Collector', 'Collected knowledge of 5 logical symbols! Your understanding of logic grows deeper.');
+            }, 800);
+        } else if (count === 10) {
+            setTimeout(() => {
+                showAchievement('Logic Master', 'Viewed 10 truth tables! You are now an expert of the Logic Paradox Island.');
+            }, 800);
+        } else if (count === 20) {
+            setTimeout(() => {
+                showAchievement('Truth Seeker', '20 times of deep research! Your passion for logic is admirable.');
+            }, 800);
+        }
+    }
+}
+
+// 羽毛掉落功能
+function dropFeather(event) {
+    const raven = event.target;
+    const ravenRect = raven.getBoundingClientRect();
+    
+    // 创建羽毛元素
+    const feather = document.createElement('div');
+    feather.className = 'feather';
+    feather.textContent = '🪶';
+    feather.style.left = (ravenRect.left + ravenRect.width / 2) + 'px';
+    feather.style.top = (ravenRect.top + ravenRect.height / 2) + 'px';
+    
+    // 添加点击事件显示真理值表
+    feather.addEventListener('click', () => {
+        const currentSymbol = window.ravenLogicSystem.getCurrentSymbol();
+        showTruthTable(currentSymbol);
+        feather.remove();
+    });
+    
+    // 添加到页面
+    document.body.appendChild(feather);
+    
+    // 3秒后自动移除羽毛
+    setTimeout(() => {
+        if (feather.parentNode) {
+            feather.remove();
+        }
+    }, 3000);
+}
+
+// 显示真理值表
+function showTruthTable(symbol) {
+    const truthTableData = window.ravenLogicSystem.getTruthTable(symbol);
+    
+    // 增加查看次数
+    window.ravenLogicSystem.incrementTruthTableView();
+    
+    // 创建真理值表模态框
+    const modal = document.createElement('div');
+    modal.className = 'truth-table show';
+    
+    let tableHTML = `
+        <button class="close-btn" onclick="closeTruthTable(this)">×</button>
+        <h3>${truthTableData.name}</h3>
+        <table>
+    `;
+    
+    truthTableData.table.forEach((row, index) => {
+        if (index === 0) {
+            tableHTML += '<tr>';
+            row.forEach(cell => {
+                tableHTML += `<th>${cell}</th>`;
+            });
+            tableHTML += '</tr>';
+        } else {
+            tableHTML += '<tr>';
+            row.forEach(cell => {
+                tableHTML += `<td>${cell}</td>`;
+            });
+            tableHTML += '</tr>';
+        }
+    });
+    
+    tableHTML += '</table>';
+    tableHTML += `<p style="margin-top: 10px; font-size: 0.8rem; color: #ccc; text-align: center;">
+        Truth table easter egg from Logic Paradox Island!
+    </p>`;
+    
+    modal.innerHTML = tableHTML;
+    document.body.appendChild(modal);
+    
+    // 5秒后自动关闭
+    setTimeout(() => {
+        if (modal.parentNode) {
+            const symbolElement = modal.querySelector('h3');
+            const symbolName = symbolElement ? symbolElement.textContent : '逻辑符号';
+            
+            modal.remove();
+            
+            // 自动关闭也显示成就（稍微不同的成就）
+            const autoCloseAchievements = [
+                {
+                    title: 'Deep Thinker',
+                    description: `You carefully studied all content of ${symbolName}! Time witnessed your dedication.`
+                },
+                {
+                    title: 'Logic Contemplator',
+                    description: `Contemplated deeply in ${symbolName}! Truth needs time to digest.`
+                },
+                {
+                    title: 'Knowledge Absorber',
+                    description: `Completely absorbed the wisdom of ${symbolName}! Every second of thinking is precious.`
+                },
+                {
+                    title: 'Patient Scholar',
+                    description: `Patiently learned ${symbolName}! In the anti-anti world, slow is fast.`
+                }
+            ];
+            
+            const randomAchievement = autoCloseAchievements[Math.floor(Math.random() * autoCloseAchievements.length)];
+            
+            setTimeout(() => {
+                showAchievement(randomAchievement.title, randomAchievement.description);
+            }, 200);
+        }
+    }, 5000);
+}
+
+// 关闭真理值表
+function closeTruthTable(button) {
+    const modal = button.parentNode;
+    const symbolElement = modal.querySelector('h3');
+    const symbolName = symbolElement ? symbolElement.textContent : 'Logic Symbol';
+    
+    modal.remove();
+    
+    // Pop up achievement notification
+    const achievements = [
+        {
+            title: 'Logic Scholar',
+            description: `You deeply studied ${symbolName}! Truth shines brilliantly in paradoxes.`
+        },
+        {
+            title: 'Truth Explorer', 
+            description: `Through ${symbolName} you glimpsed the essence of logic! The anti-anti world opens its doors to you.`
+        },
+        {
+            title: 'Paradox Analyst',
+            description: `Mastered the mysteries of ${symbolName}! You are becoming an expert of logical paradoxes.`
+        },
+        {
+            title: 'Symbol Hunter',
+            description: `Collected knowledge of ${symbolName}! Each symbol is a key to truth.`
+        }
+    ];
+    
+    // Randomly select an achievement
+    const randomAchievement = achievements[Math.floor(Math.random() * achievements.length)];
+    
+    // Delay showing achievement to let user see table closing animation
+    setTimeout(() => {
+        showAchievement(randomAchievement.title, randomAchievement.description);
+    }, 300);
+}
+
+// 页面加载后启动所有系统
 document.addEventListener('DOMContentLoaded', function() {
     // 延迟启动系统，确保DOM完全加载
     setTimeout(() => {
         window.rainSystem = new RainSystem();
         window.chaosBlockSystem = new ChaosBlockSystem();
+        window.ravenLogicSystem = new RavenLogicSystem();
         
         // 每30秒触发一次混沌爆发
         setInterval(() => {
@@ -365,3 +616,158 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 30000);
     }, 1000);
 });
+
+// 成就系统
+const AchievementSystem = {
+    // 定义所有可能的成就
+    achievements: {
+        'paradox_master': { name: 'Paradox Master', unlocked: false },
+        'logic_apprentice': { name: 'Logic Apprentice', unlocked: false },
+        'logic_storm': { name: 'Logic Storm', unlocked: false },
+        'elder': { name: 'Anti-Anti-Anti Ireland Elder', unlocked: false },
+        'logic_intro': { name: 'Logic Beginner', unlocked: false },
+        'symbol_collector': { name: 'Symbol Collector', unlocked: false },
+        'logic_master': { name: 'Logic Master', unlocked: false },
+        'truth_seeker': { name: 'Truth Seeker', unlocked: false }
+    },
+
+    // 初始化系统
+    init() {
+        this.loadAchievements();
+        this.updateCounter();
+    },
+
+    // 从localStorage加载已解锁的成就
+    loadAchievements() {
+        const savedAchievements = localStorage.getItem('antiAntiIrelandAchievements');
+        if (savedAchievements) {
+            const saved = JSON.parse(savedAchievements);
+            Object.keys(saved).forEach(key => {
+                if (this.achievements[key]) {
+                    this.achievements[key].unlocked = saved[key];
+                }
+            });
+        }
+    },
+
+    // 保存成就到localStorage
+    saveAchievements() {
+        const toSave = {};
+        Object.keys(this.achievements).forEach(key => {
+            toSave[key] = this.achievements[key].unlocked;
+        });
+        localStorage.setItem('antiAntiIrelandAchievements', JSON.stringify(toSave));
+    },
+
+    // 解锁成就
+    unlock(achievementKey) {
+        if (this.achievements[achievementKey] && !this.achievements[achievementKey].unlocked) {
+            this.achievements[achievementKey].unlocked = true;
+            this.saveAchievements();
+            this.updateCounter();
+            return true; // 新解锁
+        }
+        return false; // 已经解锁或不存在
+    },
+
+    // 更新计数器显示
+    updateCounter() {
+        const total = Object.keys(this.achievements).length;
+        const discovered = Object.values(this.achievements).filter(a => a.unlocked).length;
+        
+        document.getElementById('totalCount').textContent = total;
+        document.getElementById('discoveredCount').textContent = discovered;
+        
+        // 添加动画效果
+        const counter = document.getElementById('achievementCounter');
+        if (discovered > 0) {
+            counter.style.animation = 'counterGlow 3s ease-in-out infinite';
+        }
+    },
+
+    // 获取成就统计
+    getStats() {
+        const total = Object.keys(this.achievements).length;
+        const discovered = Object.values(this.achievements).filter(a => a.unlocked).length;
+        return { total, discovered };
+    }
+};
+
+// 初始化成就系统
+function initAchievementSystem() {
+    AchievementSystem.init();
+}
+
+// 修改原有的showAchievement函数来集成成就系统
+function showAchievement(title, description) {
+    // 先显示成就弹窗
+    const achievement = document.getElementById('achievement');
+    document.getElementById('achievementText').textContent = `${title}: ${description}`;
+    achievement.classList.add('show');
+    
+    // 然后更新成就系统计数
+    const achievementMap = {
+        'Paradox Master': 'paradox_master',
+        'Logic Apprentice': 'logic_apprentice', 
+        'Logic Storm': 'logic_storm',
+        'Anti-Anti-Anti Ireland Elder': 'elder',
+        'Logic Beginner': 'logic_intro',
+        'Symbol Collector': 'symbol_collector',
+        'Logic Master': 'logic_master',
+        'Truth Seeker': 'truth_seeker',
+        'Anti-Anti Warrior': 'contradiction_warrior'
+    };
+
+    const achievementKey = achievementMap[title];
+    if (achievementKey) {
+        AchievementSystem.unlock(achievementKey);
+    }
+}
+
+// 矛盾路标点击处理
+function handleContradictionClick() {
+    showAchievement('Anti-Anti Warrior', 'You violated the "Don\'t Click" instruction, but gained an achievement for it!');
+    
+    // Visual feedback after button click
+    const button = document.getElementById('contradictionSign');
+    button.style.background = 'linear-gradient(135deg, #00ff00 0%, #00cc00 100%)';
+    button.textContent = 'Clicked!';
+    button.style.transform = 'rotate(-3deg) scale(1.1)';
+    
+    // Restore original state after 3 seconds
+    setTimeout(() => {
+        button.style.background = 'linear-gradient(135deg, #ff4444 0%, #cc0000 100%)';
+        button.textContent = 'Don\'t Click';
+        button.style.transform = 'rotate(3deg) scale(1)';
+    }, 3000);
+}
+
+// 动态浏览器标签页标题系统
+function startDynamicPageTitle() {
+    const baseTitles = [
+        'This beach is yellow | Anti-Anti Ireland Island',
+        'This beach is not yellow | Anti-Anti Ireland Island', 
+        'This beach is not not yellow | Anti-Anti Ireland Island',
+        'This beach is not not not yellow | Anti-Anti Ireland Island',
+        'This beach is not yellow | Anti-Anti Ireland Island',
+        'This beach is not is yellow | Anti-Anti Ireland Island',
+        'This beach is is yellow | Anti-Anti Ireland Island',
+        'This beach is not not yellow | Anti-Anti Ireland Island'
+    ];
+    
+    let currentIndex = 0;
+    
+    function updatePageTitle() {
+        document.title = baseTitles[currentIndex];
+        currentIndex = (currentIndex + 1) % baseTitles.length;
+    }
+    
+    // 每3秒更换一次标签页标题
+    setInterval(updatePageTitle, 3000);
+    
+    // 立即执行一次
+    updatePageTitle();
+}
+
+// 更新成就系统以包含新成就
+AchievementSystem.achievements['contradiction_warrior'] = { name: 'Anti-Anti Warrior', unlocked: false };

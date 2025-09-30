@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>反反爱尔兰岛 | 逻辑悖论的奇幻之地</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- 逻辑辐射背景元素 -->
+    <div class="logic-radiation" style="top: 10%; left: 5%;"></div>
+    <div class="logic-radiation" style="bottom: 15%; right: 10%;"></div>
+    
+    <!-- 浮动渡鸦 -->
+    <div class="floating-raven">🐦‍⬛</div>
+    
+    <!-- 指路牌按钮 -->
+    <button class="signpost-button" onclick="window.open('#', '_blank')">BIG ISLAND</button>
+    
+    <!-- 天空区域 - 75%高度 -->
+    <div class="sky">
+        <div class="sky-layer sky-top">非晴天</div>
+        <div class="sky-layer sky-middle">未下雨</div>
+        <div class="sky-layer sky-bottom">（逻辑崩坏中）</div>
+    </div>
+    
+    <!-- 沙滩区域 - 25%高度 -->
+    <div class="beach">
+        <div class="beach-element">
+            <div class="signboard">
+                本岛禁止「不开心」——但如果你本来很开心，这条禁令反而会让你不开心！
+            </div>
+        </div>
+        
+        <div class="beach-element">
+            <div class="pufferfish" id="pufferfish">🐡</div>
+            <div class="water-pond"></div>
+            <div class="pufferfish-dialogue" id="pufferfishDialogue">
+                "我是否该膨胀？如果我说'不膨胀'，那是否意味着我'不不该膨胀'？我的大脑要炸了！"
+            </div>
+        </div>
+    </div>
+    
+    <!-- 模态框 - 悖论选择器 -->
+    <div class="modal" id="paradoxModal">
+        <div class="modal-content">
+            <h2>欢迎来到反反爱尔兰岛！</h2>
+            <p>在探索之前，请先证明你理解本岛的法则：</p>
+            
+            <fieldset>
+                <legend>请证明本岛存在：</legend>
+                <div class="paradox-option">
+                    <input type="radio" id="option1" name="paradox" value="option1">
+                    <label for="option1">我看见故它在</label>
+                </div>
+                <div class="paradox-option">
+                    <input type="radio" id="option2" name="paradox" value="option2">
+                    <label for="option2">我未见故它不在</label>
+                </div>
+                <div class="paradox-option">
+                    <input type="radio" id="option3" name="paradox" value="option3">
+                    <label for="option3">我不未见故它不不在</label>
+                </div>
+            </fieldset>
+            
+            <button id="submitParadox">进入岛屿</button>
+        </div>
+    </div>
+    
+    <!-- 成就弹窗 -->
+    <div class="achievement" id="achievement">
+        <h2>🎉 成就解锁！</h2>
+        <p id="achievementText"></p>
+        <button id="closeAchievement">太棒了！</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
